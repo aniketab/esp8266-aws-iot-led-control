@@ -1,0 +1,15 @@
+// IN SOME CASES YOU HAVE TO WRITE TWO SEPETATE CODES FOR SENDING-COMMANDS(remote-to-device) AND RESPONSE(device-to-remote) on CLOUD SERVER.
+// PUT THOSE CODE IN DIFFERENT FILES.
+
+// Import required SDKS/packages
+
+// Definde MQTT endpoints
+
+// Define MQTT Topics for PUB/SUB
+
+// Define qos
+
+// Add a listener/event handler for incomming iot messages on subscribed topic ,
+// and redirect command/response to required publish topic on which device/remote is listening
+
+// return response 
