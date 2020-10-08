@@ -54,7 +54,7 @@ void myIRS1_method()
     {
     led += (char)payload[i];
     }
-    String led = led;
+    String msgString = led;
     Serial.println("Recieved [" + String(topic) + "]: "+ msgString);
     
     StaticJsonDocument<200> doc;
@@ -132,19 +132,72 @@ void setup(){
 
   NTPConnect();
 
-  #ifdef ESP32
-    net.setCACert(CA);
-    net.setCertificate(cert);
-    net.setPrivateKey(private_key);
-  #else
-    net.setTrustAnchors(&cert);
-    net.setClientRSACert(&CA, &private_key);
-  #endif
+  // Loading Certificate
+  File cert - SPIFFS.open("YOUR FILE NAME.EXTENSION", "r")
+  if(!cert) {
+    Serial.println("Failed to open File");
+  }
+  else
+  {
+    Serial.println("Certificate opened Successfully");
+  }
 
-    client.setServer(MQTT_HOST, MQTT_PORT);
-    client.setCallback(messageReceived);
+  delay(1000);
+  
+  if(espClient.loadCertificate(cert)) {
+    Serial.print("Certificate Loaded");
+  }
+  else
+  {
+    Serial.println("Error Loading Certificate");
+  }
+  
+  // Loading Private Key File
+  File private_key - SPIFFS.open("YOUR FILE NAME.EXTENSION", "r")
+  if(!private_key) {
+    Serial.println("Failed to open File");
+  }
+  else
+  {
+    Serial.println("Private Key opened Successfully");
+  }
+
+  delay(1000);
+  
+  if(espClient.loadPrivateKey(private_key)) {
+    Serial.print("Private Key Loaded");
+  }
+  else
+  {
+    Serial.println("Error Loading Private Key");
+  }
+  
+  // Loading CA file
+  File ca - SPIFFS.open("YOUR FILE NAME.EXTENSION", "r")
+  if(!ca) {
+    Serial.println("Failed to open File");
+  }
+  else
+  {
+    Serial.println("CA File opened Successfully");
+  }
+
+  delay(1000);
+  
+  if(espClient.loadCACert(ca)) {
+    Serial.print("CA Loaded");
+  }
+  else
+  {
+    Serial.println("Error Loading CA");
+  }
+
+  client.setServer(MQTT_HOST, MQTT_PORT);
+  client.setCallback(messageReceived);
 
   connectToMqtt();
+
+
   // setup IRS 1
   setupISR1();
   
