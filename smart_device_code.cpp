@@ -11,7 +11,7 @@ const char *ssid = "YOUR WIFI ROUTER";
 const char *password = "YOUR WIFI ROUTER's PASSWORD";
 
 // Output Pin for the LED
-const int output_led = 2;
+const int led_output = 2;
 
 // Wifi UDP client
 WiFiUDP ntpUDP;
@@ -33,11 +33,11 @@ void callback(char* topic, byte* payload, unsigned int length) {
   Serial.println(led);
   if(led==1)   
   {
-    digitalWrite(2, HIGH);   //2 is output led pin
+    digitalWrite(led_output, HIGH);   //2 is output led pin
   }
   else if (led==0)  
   {
-    digitalWrite(2, LOW);   //2 is output led pin
+    digitalWrite(led_output, LOW);   //2 is output led pin
     Serial.println()
 }
 WiFiClientSecure espClient;
